@@ -1,0 +1,74 @@
+/* Drop rate row colors */
+.drop-1 { background-color: #d4edda; }   /* green */
+.drop-2 { background-color: #fff3cd; }   /* orange */
+.drop-3 { background-color: #f8d7da; }   /* red */
+
+.header {
+ display: flex;
+ flex-direction: row;
+  justify-content: space-between;
+}
+/* Row hover effect */
+#studentTable tr {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+#studentTable tr:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Filter button */
+.filter-container {
+  position: relative;
+  display: inline-block;
+}
+.filter-btn {
+  background: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.filter-btn:hover {
+  background: #45a049;
+}
+.filter-dropdown {
+  display: none;
+  position: absolute;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.2);
+  border-radius: 6px;
+  margin-top: 5px;
+  z-index: 1;
+}
+.filter-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.filter-dropdown button:hover {
+  background: #f1f1f1;
+}
+
+/* Table styles */
+.table-container {
+  margin: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+thead {
+  background: #f4f4f4;
+}

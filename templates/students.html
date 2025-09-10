@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='students.css') }}">
+</head>
+<body>
+  <div class="header">
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Search by student name...">
+          <button id="searchBtn">🔍</button>
+        </div>
+    
+        <div class="filter-container">
+          <button class="filter-btn">⚙️ Filter</button>
+          <div class="filter-dropdown" id="filterDropdown">
+            <button onclick="filterDropRate('all')">All</button>
+            <button onclick="filterDropRate('1')">Drop Rate 1 (Safe)</button>
+            <button onclick="filterDropRate('2')">Drop Rate 2 (At Risk)</button>
+            <button onclick="filterDropRate('3')">Drop Rate 3 (Critical)</button>
+          </div>
+        </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Email</th>
+          <th>Branch</th>
+          <th>Drop Rate</th>
+        </tr>
+      </thead>
+      <tbody id="studentTable">
+        {% for student in students %}
+        <tr class="drop-{{ student['Predicted_Drop_Rate'] }}" onclick="window.location.href='/student/{{ student.Student_ID }}'">
+          <td>{{ student['Student_ID'] }}</td>
+          <td class="student-name">{{ student['Name'] }}</td>
+          <td>{{ student['Year'] }}</td>
+          <td>{{ student['Email'] }}</td>
+          <td>{{ student['Branch'] }}</td>
+          <td>{{ student['Predicted_Drop_Rate'] }}</td>
+        </onclick=>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+  // 🔍 Search functionality (only by Name column)
+  document.getElementById('searchBtn').addEventListener('click', function () {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let rows = document.querySelectorAll('#studentTable tr');
+
+    rows.forEach(row => {
+      let name = row.querySelector('.student-name').innerText.toLowerCase();
+      row.style.display = name.includes(input) ? '' : 'none';
+    });
+  });
+
+  // Press Enter in search box also works
+  document.getElementById('searchInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      document.getElementById('searchBtn').click();
+    }
+  });
+
+  // ⚙️ Filter dropdown toggle
+  document.querySelector('.filter-btn').addEventListener('click', function () {
+    let dropdown = document.getElementById('filterDropdown');
+    dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+  });
+
+  // Filter function
+  function filterDropRate(rate) {
+    let rows = document.querySelectorAll('#studentTable tr');
+    rows.forEach(row => {
+      let dropRate = row.cells[5].innerText; // 6th column (Drop Rate)
+      if (rate === 'all' || dropRate === rate) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    // Close dropdown after selection
+    document.getElementById('filterDropdown').style.display = 'none';
+  }
+
+  // Close dropdown if clicked outside
+  window.addEventListener('click', function (event) {
+    if (!event.target.matches('.filter-btn')) {
+      document.getElementById('filterDropdown').style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>

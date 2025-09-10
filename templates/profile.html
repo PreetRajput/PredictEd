@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body>
+  <div class="profile-container drop-{{ student['Predicted_Drop_Rate'] }}  c   ">
+    <!-- Left column: picture -->
+    <div class="profile-pic">
+      <img src="{{ student.get('Photo', '/static/images/pfp.jpg') }}" alt="Student Photo">
+    </div>
+
+    <!-- Right column: student info -->
+    <div class="profile-info ">
+      <h1>{{ student['Name'] }}</h1>
+      <p><strong>Student ID:</strong> {{ student['Student_ID'] }}</p>
+      <p><strong>Email:</strong> {{ student['Email'] }}</p>
+      <p><strong>Branch:</strong> {{ student['Branch'] }}</p>
+      <p><strong>Year:</strong> {{ student['Year'] }}</p>
+      <hr>
+      <p><strong>Total Classes:</strong> {{ student['Total_Classes'] }}</p>
+      <p><strong>Classes Attended:</strong> {{ student['Classes_Attended'] }}</p>
+      <p><strong>Attendance %:</strong> {{ student['Attendance_Percentage'] | round(2) }}%</p>
+      <hr>
+      <p><strong>Internal Test 1:</strong> {{ student['Internal_Test1_Score'] }}</p>
+      <p><strong>Internal Test 2:</strong> {{ student['Internal_Test2_Score'] }}</p>
+      <p><strong>Internal Test 3:</strong> {{ student['Internal_Test3_Score'] }}</p>
+      <p><strong>Average Test Score:</strong> {{ student['Average_Test_Score'] | round(2) }}</p>
+      <p><strong>Failed Attempts:</strong> {{ student['Failed_Attempts'] }}</p>
+      <hr>
+      <p><strong>Fee Status:</strong> {{ student['Fee_Status'] }}</p>
+      <p><strong>Predicted Drop Rate:</strong> {{ student['Predicted_Drop_Rate'] }}</p>
+
+      <!-- Buttons -->
+      <div class="profile-actions ">
+        <button onclick="window.location.href='/students'">⬅ Back</button>
+        <button onclick="window.location.href='mailto:guardian@example.com?subject=Regarding {{ student[Name] }}&body=Dear Guardian,%0D%0AWe would like to discuss {{ student[Name] }}'">✉ Send Email</button>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

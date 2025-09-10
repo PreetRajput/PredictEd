@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form action="/signup" method="POST" enctype="multipart/form-data">
+            <label>Username</label>
+            <input type="text" name="username" autocomplete="off"  required>
+
+            <label>Email</label>
+            <input type="email" name="email" autocomplete="off"  required>
+
+            <label>Password</label>
+            <input type="password" name="password" autocomplete="off"  required>
+
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" autocomplete="off"  required>
+
+            <label>1. Student Basic Info (.csv/.xlsx)</label>
+            <input type="file" name="basic_dataset" accept=".csv,.xlsx" required>
+
+            <label>2. Attendance Data (.csv/.xlsx)</label>
+            <input type="file" name="attendance_dataset" accept=".csv,.xlsx" required>
+
+            <label>3. Internal Tests Data (.csv/.xlsx)</label>
+            <input type="file" name="tests_dataset" accept=".csv,.xlsx" required>
+
+            <label>4. Fee Data (.csv/.xlsx)</label>
+            <input type="file" name="fees_dataset" accept=".csv,.xlsx" required>
+
+            <input type="submit" value="Sign Up">
+        </form>
+
+        <!-- Back button -->
+        <button type="button" class="btn" onclick="window.location.href='/'">Back to Login</button>
+    </div>
+</body>
+</html>
