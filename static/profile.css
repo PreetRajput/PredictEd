@@ -4,22 +4,33 @@ body {
   margin: 0;
   padding: 20px;
 }
-.drop-1 {
-      background-color: #d4edda; /* light green */
-    }
-.drop-2 {
-      background-color: #fff3cd; /* light orange */
-    }
-.drop-3 {
-      background-color: #f8d7da; /* light red */
-    }
+
+.drop-1 { background-color: #d4edda; }
+.drop-2 { background-color: #fff3cd; }
+.drop-3 { background-color: #f8d7da; }
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
 .profile-container {
+  flex: 1;
   display: flex;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   max-width: 800px;
   margin: auto;
   padding: 20px;
+  transition: all 0.5s ease;
+}
+
+.profile-container.shrink {
+  flex: 0.7; /* shrink width */
 }
 
 .profile-pic {
@@ -57,6 +68,7 @@ hr {
   border-top: 1px solid #eee;
   margin: 10px 0;
 }
+
 .profile-actions {
   margin-top: 20px;
 }
@@ -82,4 +94,58 @@ hr {
 
 .profile-actions button:first-child:hover {
   background-color: #0056b3;
+}
+
+/* Email form hidden by default */
+.email-container {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: fadeIn 0.5s ease;
+}
+
+.email-container.show {
+  display: flex;
+}
+
+.email-container h2 {
+  margin-top: 0;
+}
+
+.email-container label {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.email-container input,
+.email-container textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.email-container button {
+  margin-top: 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.email-container button:hover {
+  background-color: #218838;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }

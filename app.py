@@ -7,12 +7,6 @@ from sklearn.preprocessing import OrdinalEncoder
 app = Flask(__name__)
 
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = "your_email@gmail.com"
-app.config['MAIL_PASSWORD'] = "your_app_password"  # use App Password, not your normal password!
-
 @app.route('/')
 def home():
     return render_template('login.html')
@@ -83,25 +77,6 @@ def student_profile(student_id):
     return render_template("profile.html", student=student)
 # Email configuration (for Gmail SMTP)
 
-mail = Mail(app)
-
-@app.route("/send_email/<student_id>")
-def send_email(student_id):
-    # get student details (like guardian email) from dataset
-    df = pd.read_csv("merged_students.csv")
-    student = df[df['Student_ID'] == student_id].iloc[0]
-
-    guardian_email = student["Guardian_Email"]  
-
-    msg = Message(
-        subject=f"Update on {student['Name']}",
-        sender="rajputpreet72@gmail.com",
-        recipients=[guardian_email],
-        body=f"Dear Guardian,\n\nWe’d like to update you on {student['Name']}’s performance.\nDrop Rate: {student['Predicted_Drop_Rate']}\n\nBest regards,\nCollege Admin"
-    )
-    mail.send(msg)
-
-    return f"Email sent to {guardian_email}!"
 
 
 if __name__ == "__main__":

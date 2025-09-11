@@ -6,40 +6,95 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
 </head>
 <body>
-  <div class="profile-container drop-{{ student['Predicted_Drop_Rate'] }}  c   ">
-    <!-- Left column: picture -->
-    <div class="profile-pic">
-      <img src="{{ student.get('Photo', '/static/images/pfp.jpg') }}" alt="Student Photo">
-    </div>
-
-    <!-- Right column: student info -->
-    <div class="profile-info ">
-      <h1>{{ student['Name'] }}</h1>
-      <p><strong>Student ID:</strong> {{ student['Student_ID'] }}</p>
-      <p><strong>Email:</strong> {{ student['Email'] }}</p>
-      <p><strong>Branch:</strong> {{ student['Branch'] }}</p>
-      <p><strong>Year:</strong> {{ student['Year'] }}</p>
-      <hr>
-      <p><strong>Total Classes:</strong> {{ student['Total_Classes'] }}</p>
-      <p><strong>Classes Attended:</strong> {{ student['Classes_Attended'] }}</p>
-      <p><strong>Attendance %:</strong> {{ student['Attendance_Percentage'] | round(2) }}%</p>
-      <hr>
-      <p><strong>Internal Test 1:</strong> {{ student['Internal_Test1_Score'] }}</p>
-      <p><strong>Internal Test 2:</strong> {{ student['Internal_Test2_Score'] }}</p>
-      <p><strong>Internal Test 3:</strong> {{ student['Internal_Test3_Score'] }}</p>
-      <p><strong>Average Test Score:</strong> {{ student['Average_Test_Score'] | round(2) }}</p>
-      <p><strong>Failed Attempts:</strong> {{ student['Failed_Attempts'] }}</p>
-      <hr>
-      <p><strong>Fee Status:</strong> {{ student['Fee_Status'] }}</p>
-      <p><strong>Predicted Drop Rate:</strong> {{ student['Predicted_Drop_Rate'] }}</p>
-
-      <!-- Buttons -->
-      <div class="profile-actions ">
-        <button onclick="window.location.href='/students'">⬅ Back</button>
-        <button onclick="window.location.href='mailto:guardian@example.com?subject=Regarding {{ student[Name] }}&body=Dear Guardian,%0D%0AWe would like to discuss {{ student[Name] }}'">✉ Send Email</button>
+  <div class="main-container">
+    <!-- Profile container -->
+    <div class="profile-container drop-{{ student['Predicted_Drop_Rate'] }}" id="profileContainer">
+      <!-- Left column: picture -->
+      <div class="profile-pic">
+        <img src="{{ student.get('Photo', '/static/images/pfp.jpg') }}" alt="Student Photo">
       </div>
 
+      <!-- Right column: student info -->
+      <div class="profile-info">
+        <h1 id="studentName">{{ student['Name'] }}</h1>
+        <p><strong>Student ID:</strong> {{ student['Student_ID'] }}</p>
+        <p><strong>Email:</strong> {{ student['Email'] }}</p>
+        <p><strong>Branch:</strong> {{ student['Branch'] }}</p>
+        <p><strong>Year:</strong> {{ student['Year'] }}</p>
+        <hr>
+        <p><strong>Total Classes:</strong> {{ student['Total_Classes'] }}</p>
+        <p><strong>Classes Attended:</strong> {{ student['Classes_Attended'] }}</p>
+        <p><strong>Attendance %:</strong> {{ student['Attendance_Percentage'] | round(2) }}%</p>
+        <hr>
+        <p><strong>Internal Test 1:</strong> {{ student['Internal_Test1_Score'] }}</p>
+        <p><strong>Internal Test 2:</strong> {{ student['Internal_Test2_Score'] }}</p>
+        <p><strong>Internal Test 3:</strong> {{ student['Internal_Test3_Score'] }}</p>
+        <p><strong>Average Test Score:</strong> {{ student['Average_Test_Score'] | round(2) }}</p>
+        <p><strong>Failed Attempts:</strong> {{ student['Failed_Attempts'] }}</p>
+        <hr>
+        <p><strong>Fee Status:</strong> {{ student['Fee_Status'] }}</p>
+        <p id="dropRate"><strong>Predicted Drop Rate:</strong>{{ student['Predicted_Drop_Rate'] }}</p>
+
+        <!-- Buttons -->
+        <div class="profile-actions">
+          <button onclick="window.location.href='/students'">⬅ Back</button>
+          <button onclick="openEmailForm()">✉ Send Email</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Form Container -->
+    <div class="email-container" id="emailContainer">
+      <h2>Compose Email</h2>
+      <form>
+        <label for="to">To:</label>
+        <input type="email" id="to" value="{{ student['Email'] }}" readonly>
+
+        <label for="from">From:</label>
+        <input type="email" id="from" placeholder="your_email@gmail.com">
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" placeholder="Enter subject" >
+
+        <label for="body">Body:</label>
+        <textarea id="body" rows="6" placeholder="Write your message here..."></textarea>
+
+        <button type="submit">Send</button>
+      </form>
     </div>
   </div>
+
+  <script>
+    function openEmailForm() {
+      document.getElementById('profileContainer').classList.add('shrink');
+      document.getElementById('emailContainer').classList.add('show');
+      document.getElementById('profileContainer').classList.add('shrink');
+          const dropRateText =document.getElementById('dropRate').textContent;
+          let dropRate = parseInt(dropRateText.split(':')[1].trim());
+          console.log(dropRate);
+          const emailForm = document.getElementById('emailContainer');
+          emailForm.classList.add('show');
+
+          // prefill subject and body based on drop rate
+          let subject = '';
+          let body = '';
+          let studentName = document.getElementById("studentName").value
+
+          if(dropRate == 1){
+              subject = "Student Progress Update: Safe";
+              body = `Hello,\n\nThis is to inform you that ${studentName} is doing well in studies. Attendance and test scores are satisfactory.\n\nRegards,\nYour Teacher`;
+          } else if(dropRate == 2){
+              subject = "Student Progress Alert: At Risk";
+              body = `Hello,\n\nThis is to notify you that ${studentName} is at risk of underperforming. Attendance or test scores are slightly below expected levels. Please encourage and monitor.\n\nRegards,\nYour Teacher`;
+          } else if(dropRate == 3){
+              subject = "Urgent Student Alert: Critical Risk";
+              body = `Hello,\n\nThis is an urgent notice regarding ${studentName}. Attendance and/or test scores are critically low. Immediate attention and intervention is required.\n\nRegards,\nYour Teacher`;
+          }
+
+          document.getElementById('subject').value = subject;
+          document.getElementById('body').value = body;
+      }
+
+  </script>
 </body>
 </html>
