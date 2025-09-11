@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-dark: #020917;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent-gradient: linear-gradient(90deg, #60a5fa, #48d1cc);
+  --border-light: rgba(255, 255, 255, 0.05);
+  --drop-1: rgba(96, 165, 250, 0.1);
+  --drop-2: rgba(72, 209, 204, 0.1);
+  --drop-3: rgba(255, 99, 99, 0.1);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(ellipse at top, #0f2027 0%, var(--bg-dark) 100%);
+  margin: 0;
+  padding: 2rem;
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+.drop-1 { background: var(--drop-1); }
+.drop-2 { background: var(--drop-2); }
+.drop-3 { background: var(--drop-3); }
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.profile-container {
+  flex: 1;
+  display: flex;
+  border-radius: 24px;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 800px;
+  margin: auto;
+  padding: 2.5rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-container.shrink {
+  flex: 0.7;
+  transform: translateX(-20px);
+}
+
+.profile-pic {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: 2rem;
+}
+
+.profile-pic img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border-light);
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-pic img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.2);
+}
+
+.profile-info {
+  flex: 3;
+}
+
+.profile-info h1 {
+  margin-top: 0;
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.profile-info p {
+  margin: 0.75rem 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 1.5rem 0;
+}
+
+.profile-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-actions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-actions button:first-child {
+  background: var(--accent-gradient);
+  color: white;
+}
+
+.profile-actions button:first-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px rgba(96, 165, 250, 0.5);
+}
+
+.profile-actions button:last-child {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.profile-actions button:last-child:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.email-container {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  padding: 2.5rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.email-container.show {
+  display: flex;
+  animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.email-container h2 {
+  margin-top: 0;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.email-container label {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.email-container input,
+.email-container textarea {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.email-container input:focus,
+.email-container textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.1);
+}
+
+.email-container button {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--accent-gradient);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.email-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px rgba(96, 165, 250, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+  
+  .profile-container {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  
+  .profile-pic {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .email-container {
+    padding: 1.5rem;
+  }
+}

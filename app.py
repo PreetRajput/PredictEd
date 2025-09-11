@@ -1,9 +1,8 @@
 from flask import Flask, request, render_template
 import pandas as pd
 import pickle  
-from flask_mail import Mail, Message
 from sklearn.preprocessing import OrdinalEncoder
-
+from flask_mail import Mail, Message 
 app = Flask(__name__)
 
 
